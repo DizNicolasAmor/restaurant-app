@@ -1,0 +1,347 @@
+{
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "This API handles data related to orders.",
+    "title": "API orders.",
+    "contact": {
+      "email": "diz.nicolasamor@gmail.com"
+    },
+    "version": "0.1"
+  },
+  "paths": {
+    "/api/orders": {
+      "get": {
+        "description": "GetOrders: hit the \"orders\" collection. If it is empty, return null, else return an array of all Order elements",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "handlers"
+        ],
+        "operationId": "GetOrders",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/allOrdersResponse"
+          },
+          "500": {
+            "$ref": "#/responses/serverErrorResponse"
+          }
+        }
+      },
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "handlers"
+        ],
+        "summary": "CreateOrder: create new Order.",
+        "operationId": "CreateOrder",
+        "parameters": [
+          {
+            "name": "Order",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/order"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "$ref": "#/responses/orderCreatedResponse"
+          },
+          "400": {
+            "$ref": "#/responses/badRequestErrorResponse"
+          },
+          "404": {
+            "$ref": "#/responses/notFoundErrorResponse"
+          },
+          "500": {
+            "$ref": "#/responses/serverErrorResponse"
+          }
+        }
+      }
+    },
+    "/api/orders/{id}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "handlers"
+        ],
+        "summary": "GetOrderById: find Order in the \"orders\" collection, based on its \"id\".",
+        "operationId": "GetOrderById",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/orderResponse"
+          },
+          "404": {
+            "$ref": "#/responses/notFoundErrorResponse"
+          },
+          "500": {
+            "$ref": "#/responses/serverErrorResponse"
+          }
+        }
+      },
+      "delete": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "handlers"
+        ],
+        "summary": "DeleteOrder: find Order in the \"orders\" collection, based on its \"id\" and delete it.",
+        "operationId": "DeleteOrder",
+        "responses": {
+          "204": {
+            "description": " No content"
+          },
+          "404": {
+            "$ref": "#/responses/notFoundErrorResponse"
+          },
+          "500": {
+            "$ref": "#/responses/serverErrorResponse"
+          }
+        }
+      }
+    },
+    "/api/orders/{id}/patch-status": {
+      "patch": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "handlers"
+        ],
+        "summary": "PatchOrderStatus: find 'Order' bi 'id' and patch its 'status' value.",
+        "operationId": "PatchOrderStatus",
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "required": [
+                "status"
+              ],
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "x-go-name": "Status"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/patchOrderStatusResponse"
+          },
+          "400": {
+            "$ref": "#/responses/badRequestErrorResponse"
+          },
+          "404": {
+            "$ref": "#/responses/notFoundErrorResponse"
+          },
+          "500": {
+            "$ref": "#/responses/serverErrorResponse"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "CustomErrorResponse": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string",
+          "x-go-name": "Error"
+        },
+        "message": {
+          "type": "string",
+          "x-go-name": "Message"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Status"
+        }
+      },
+      "x-go-package": "_/Users/nicolasdiz/dev/restaurant-app/orders/handlers"
+    },
+    "OrderResponseBase": {
+      "type": "object",
+      "properties": {
+        "buyeremail": {
+          "type": "string",
+          "x-go-name": "BuyerEmail"
+        },
+        "buyername": {
+          "type": "string",
+          "x-go-name": "BuyerName"
+        },
+        "creationdate": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "CreationDate"
+        },
+        "id": {
+          "type": "string",
+          "x-go-name": "Id"
+        },
+        "productcurrency": {
+          "type": "string",
+          "x-go-name": "ProductCurrency"
+        },
+        "productdescription": {
+          "type": "string",
+          "x-go-name": "ProductDescription"
+        },
+        "productname": {
+          "type": "string",
+          "x-go-name": "ProductName"
+        },
+        "productprice": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "ProductPrice"
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Quantity"
+        },
+        "status": {
+          "type": "string",
+          "x-go-name": "Status"
+        },
+        "totalprice": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "TotalPrice"
+        }
+      },
+      "x-go-package": "_/Users/nicolasdiz/dev/restaurant-app/orders/handlers"
+    },
+    "order": {
+      "type": "object",
+      "required": [
+        "buyername",
+        "buyeremail",
+        "productcurrency",
+        "productdescription",
+        "productname",
+        "productprice",
+        "quantity"
+      ],
+      "properties": {
+        "buyeremail": {
+          "type": "string",
+          "x-go-name": "BuyerEmail"
+        },
+        "buyername": {
+          "type": "string",
+          "x-go-name": "BuyerName"
+        },
+        "productcurrency": {
+          "type": "string",
+          "x-go-name": "ProductCurrency"
+        },
+        "productdescription": {
+          "type": "string",
+          "x-go-name": "ProductDescription"
+        },
+        "productname": {
+          "type": "string",
+          "x-go-name": "ProductName"
+        },
+        "productprice": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "ProductPrice"
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Quantity"
+        }
+      },
+      "x-go-name": "OrderBody",
+      "x-go-package": "_/Users/nicolasdiz/dev/restaurant-app/orders/handlers"
+    }
+  },
+  "responses": {
+    "allOrdersResponse": {
+      "description": "Ok",
+      "schema": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/OrderResponseBase"
+        }
+      }
+    },
+    "badRequestErrorResponse": {
+      "description": "Bad request",
+      "schema": {
+        "$ref": "#/definitions/CustomErrorResponse"
+      }
+    },
+    "notFoundErrorResponse": {
+      "description": "Not found",
+      "schema": {
+        "$ref": "#/definitions/CustomErrorResponse"
+      }
+    },
+    "orderCreatedResponse": {
+      "description": "Created",
+      "schema": {
+        "$ref": "#/definitions/OrderResponseBase"
+      }
+    },
+    "orderResponse": {
+      "description": "Ok",
+      "schema": {
+        "$ref": "#/definitions/OrderResponseBase"
+      }
+    },
+    "patchOrderStatusResponse": {
+      "description": "Ok",
+      "schema": {
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "properties": {
+          "status": {
+            "type": "string",
+            "x-go-name": "Status"
+          }
+        }
+      }
+    },
+    "serverErrorResponse": {
+      "description": "Server error",
+      "schema": {
+        "$ref": "#/definitions/CustomErrorResponse"
+      }
+    }
+  }
+}

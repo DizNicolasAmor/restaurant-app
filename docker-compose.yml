@@ -1,0 +1,37 @@
+version: "3.7"
+services:
+  products:
+    build: ./products
+    image: image/restaurant-app/products
+    environment:
+      - ENV_PRODUCTS=0.0.0.0:8080
+      - MONGODB_HOST=db
+      - MONGODB_USER
+      - MONGODB_PWD
+      - MONGODB_DATABASE=products
+    ports:
+      - "9000:8080"
+
+  orders:
+    build: ./orders
+    image: image/restaurant-app/orders
+    environment:
+      - ENV_ORDERS=0.0.0.0:8080
+      - MONGODB_HOST=db
+      - MONGODB_USER
+      - MONGODB_PWD
+      - MONGODB_DATABASE=orders
+    ports:
+      - "9001:8080"
+
+  db:
+    image: mongo:3.3
+    ports:
+      - target: 27017
+        published: 27017
+        protocol: tcp
+        mode: host
+    volumes:
+      - type: bind
+        source: ./backup
+        target: /backup

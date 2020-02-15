@@ -1,0 +1,286 @@
+{
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "This API handles data related to products.",
+    "title": "API products.",
+    "contact": {
+      "email": "diz.nicolasamor@gmail.com"
+    },
+    "version": "0.1"
+  },
+  "paths": {
+    "/api/products": {
+      "get": {
+        "description": "GetProducts: hit the \"products\" collection. If it is empty, return null, else return an array of all Product elements",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "handlers"
+        ],
+        "operationId": "GetProducts",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/allProductsResponse"
+          },
+          "500": {
+            "$ref": "#/responses/serverErrorResponse"
+          }
+        }
+      },
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "handlers"
+        ],
+        "summary": "CreateProduct: create new Product.",
+        "operationId": "CreateProduct",
+        "parameters": [
+          {
+            "name": "Product",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/product"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "$ref": "#/responses/productCreatedResponse"
+          },
+          "400": {
+            "$ref": "#/responses/badRequestErrorResponse"
+          },
+          "404": {
+            "$ref": "#/responses/notFoundErrorResponse"
+          },
+          "500": {
+            "$ref": "#/responses/serverErrorResponse"
+          }
+        }
+      }
+    },
+    "/api/products/{id}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "handlers"
+        ],
+        "summary": "GetProductById: find Product in the \"products\" collection, based on its \"id\".",
+        "operationId": "GetProductById",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/productResponse"
+          },
+          "404": {
+            "$ref": "#/responses/notFoundErrorResponse"
+          },
+          "500": {
+            "$ref": "#/responses/serverErrorResponse"
+          }
+        }
+      },
+      "put": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "handlers"
+        ],
+        "summary": "UpdateProductById: find Procuct in the \"products\" collection, based on its \"id\" and update it with submitted values.",
+        "operationId": "UpdateProductById",
+        "parameters": [
+          {
+            "name": "Product",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/product"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/productResponse"
+          },
+          "400": {
+            "$ref": "#/responses/badRequestErrorResponse"
+          },
+          "404": {
+            "$ref": "#/responses/notFoundErrorResponse"
+          },
+          "500": {
+            "$ref": "#/responses/serverErrorResponse"
+          }
+        }
+      },
+      "delete": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "handlers"
+        ],
+        "summary": "DeleteProduct: find Product in the \"products\" collection, based on its \"id\" and delete it.",
+        "operationId": "DeleteProduct",
+        "responses": {
+          "204": {
+            "description": " No content"
+          },
+          "404": {
+            "$ref": "#/responses/notFoundErrorResponse"
+          },
+          "500": {
+            "$ref": "#/responses/serverErrorResponse"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "CustomErrorResponse": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string",
+          "x-go-name": "Error"
+        },
+        "message": {
+          "type": "string",
+          "x-go-name": "Message"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Status"
+        }
+      },
+      "x-go-package": "_/Users/nicolasdiz/dev/restaurant-app/products/handlers"
+    },
+    "ProductResponseBase": {
+      "type": "object",
+      "properties": {
+        "currency": {
+          "type": "string",
+          "x-go-name": "Currency"
+        },
+        "description": {
+          "type": "string",
+          "x-go-name": "Description"
+        },
+        "id": {
+          "type": "string",
+          "x-go-name": "Id"
+        },
+        "image": {
+          "type": "string",
+          "x-go-name": "Image"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Price"
+        }
+      },
+      "x-go-package": "_/Users/nicolasdiz/dev/restaurant-app/products/handlers"
+    },
+    "product": {
+      "type": "object",
+      "required": [
+        "name",
+        "description",
+        "price",
+        "currency"
+      ],
+      "properties": {
+        "currency": {
+          "type": "string",
+          "x-go-name": "Currency"
+        },
+        "description": {
+          "type": "string",
+          "x-go-name": "Description"
+        },
+        "image": {
+          "type": "string",
+          "x-go-name": "Image"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Price"
+        }
+      },
+      "x-go-name": "ProductBody",
+      "x-go-package": "_/Users/nicolasdiz/dev/restaurant-app/products/handlers"
+    }
+  },
+  "responses": {
+    "allProductsResponse": {
+      "description": "Ok",
+      "schema": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/ProductResponseBase"
+        }
+      }
+    },
+    "badRequestErrorResponse": {
+      "description": "Bad request",
+      "schema": {
+        "$ref": "#/definitions/CustomErrorResponse"
+      }
+    },
+    "notFoundErrorResponse": {
+      "description": "Not found",
+      "schema": {
+        "$ref": "#/definitions/CustomErrorResponse"
+      }
+    },
+    "productCreatedResponse": {
+      "description": "Created",
+      "schema": {
+        "$ref": "#/definitions/ProductResponseBase"
+      }
+    },
+    "productResponse": {
+      "description": "Ok",
+      "schema": {
+        "$ref": "#/definitions/ProductResponseBase"
+      }
+    },
+    "serverErrorResponse": {
+      "description": "Server error",
+      "schema": {
+        "$ref": "#/definitions/CustomErrorResponse"
+      }
+    }
+  }
+}
