@@ -1,0 +1,10 @@
+h1,
+.subtitle {
+  text-align: center;
+  margin: 9px;
+  cursor: default;
+}
+
+.subtitle {
+  font-size: x-large;
+}

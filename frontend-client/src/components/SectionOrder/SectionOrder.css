@@ -1,0 +1,64 @@
+.input__wrapper {
+  min-width: 210px;
+  margin: 18px;
+  height: 60px;
+}
+
+.input__wrapper input {
+  padding: 3px 1em;
+  box-sizing: border-box;
+  border-radius: 4px;
+  width: 325px;
+  height: 44px;
+  color: black;
+}
+
+.input__wrapper .input.error {
+  color: red;
+}
+
+.form-button-wrapper {
+  text-align: center;
+  margin: 30px;
+}
+.form-button-wrapper button {
+  background: lightblue;
+  padding: 6px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.modal {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+.backdrop {
+  background-color: grey;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 100;
+}
+
+.content {
+  max-width: 600px;
+  height: auto;
+  border: solid 1px lightgrey;
+  border-radius: 4px;
+  box-shadow: 4px 4px 10px darkgrey;
+  background-color: white;
+  position: relative;
+  z-index: 100;
+  text-align: center;
+  padding: 30px;
+}

@@ -35,3 +35,9 @@ services:
       - type: bind
         source: ./backup
         target: /backup
+
+  frontend-client:
+    build: ./frontend-client
+    image: image/restaurant-app/frontend-client
+    ports:
+      - "9002:3000"
