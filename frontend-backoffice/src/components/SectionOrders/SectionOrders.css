@@ -1,0 +1,31 @@
+.orders__wrapper {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 1080px;
+  max-height: 75vh;
+  margin: auto;
+  overflow: auto;
+}
+
+.orders__wrapper .icon__edit {
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  color: blue;
+}
+.orders__wrapper .icon__edit:hover {
+  opacity: 0.6;
+}
+
+.orders__card {
+  width: 300;
+  margin: 9px;
+  position: relative;
+}
+
+.orders__wrapper .orders__card--button {
+  display: block;
+  margin: 12px auto 0;
+}

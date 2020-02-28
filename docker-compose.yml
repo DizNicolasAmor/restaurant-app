@@ -41,3 +41,9 @@ services:
     image: image/restaurant-app/frontend-client
     ports:
       - "9002:3000"
+
+  frontend-backoffice:
+    build: ./frontend-backoffice
+    image: image/restaurant-app/frontend-backoffice
+    ports:
+      - "9003:3000"

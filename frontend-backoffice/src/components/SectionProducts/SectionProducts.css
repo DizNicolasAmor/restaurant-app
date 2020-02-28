@@ -1,0 +1,26 @@
+.products__wrapper {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 1080px;
+  max-height: 75vh;
+  margin: auto;
+  overflow: auto;
+}
+
+.products__wrapper .icon {
+  position: absolute;
+  top: 9px;
+}
+.products__wrapper .icon__delete {
+  right: 9px;
+  color: darkred;
+}
+.products__wrapper .icon__edit {
+  right: 27px;
+  color: blue;
+}
+.products__wrapper .icon:hover {
+  opacity: 0.6;
+}
